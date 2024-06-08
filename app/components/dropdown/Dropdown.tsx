@@ -2,10 +2,14 @@
 import { useState, useRef, useEffect } from 'react'
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
 
-export const Dropdown = (props: { activeKey: string; values: {}; onChange: () => {} }) => {
+export const Dropdown = (props: {
+  activeKey: string
+  values: Record<string, string>
+  onChange: (key: string) => void
+}) => {
   const { activeKey, values, onChange } = props
   const [open, setOpen] = useState(false)
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   const handleOpen = () => {
     setOpen(!open)
@@ -28,7 +32,7 @@ export const Dropdown = (props: { activeKey: string; values: {}; onChange: () =>
   return (
     <div className="dropdown relative" ref={ref}>
       <div className="flex flex-row items-center justify-center">
-        <div>{values[activeKey]?.value || activeKey}</div>
+        <div>{values?.[activeKey]}</div>
         <button onClick={handleOpen} className="p-4 hover:bg-gray-600 user-">
           {!open ? (
             <BiChevronDown className="pointer-events-none" />

@@ -28,11 +28,12 @@ export const Words = () => {
   const location = useAppSelector(selectLocation)
 
   const availableGenders = useMemo(() => {
-    return NAMES.races[race].words.genders
+    // @ts-ignore will fix later
+    return NAMES.races?.[race]?.words.genders
   }, [race])
 
   const availableGendersObject = useMemo(() => {
-    const object = {}
+    const object: Record<string, string> = {}
     for (const key of availableGenders) {
       object[key] = key.toUpperCase()
     }
@@ -44,14 +45,15 @@ export const Words = () => {
   }, [])
 
   const availableRacesObject = useMemo(() => {
-    const object = {}
+    const object: Record<string, string> = {}
     for (const key of availableRaces) {
       object[key] = key.toUpperCase()
     }
     return object
   }, [availableRaces])
 
-  const formattedSentence = word[0].toUpperCase() + word.substring(1)
+  const formattedSentence =
+    word[0].toUpperCase() + word.substring(1) + (location ? `of ${location}` : '')
 
   useEffect(() => {
     const resize = () => {
@@ -106,7 +108,7 @@ export const Words = () => {
       </div>
       <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full max-w-4xl bg-gray-100 rounded-md overflow-hidden">
         <div className="flex flex-row items-center place-content-between p-4 bg-gray-300 w-full">
-          <h4 className="text-xl">Prompt History</h4>
+          <h4 className="text-xl">Name History</h4>
           <button className={secondaryButtonStyle} onClick={() => dispatch(resetHistory())}>
             Reset History
           </button>

@@ -7,20 +7,22 @@ const randomIndexFromArray = (max: number) => {
 
 const generateSlug = () => Math.random().toString(16).slice(2)
 
-const generateName = (gender, race): words => {
+const generateName = (gender: string, race: string) => {
+  // @ts-ignore will fix later
   const namesStart = NAMES.races[race].words[gender].start
+  // @ts-ignore will fix later
   const namesEnd = NAMES.races[race].words[gender].end
   const nameStart = namesStart[randomIndexFromArray(namesStart.length)]
   const nameEnd = namesEnd[randomIndexFromArray(namesEnd.length)]
   return `${nameStart}${nameEnd}`
 }
 
-const formatSentence = (word) => {
+const formatSentence = (word: string) => {
   return word[0].toUpperCase() + word.substring(1)
 }
 
-const addWordToHistory = (state: any, words) => {
-  const newHistoryItem = formatSentence(words)
+const addWordToHistory = (state: any, word: string) => {
+  const newHistoryItem = formatSentence(word)
   const newHistory = state.history.slice()
   newHistory.push(newHistoryItem)
   state.history = newHistory.slice()
@@ -65,7 +67,7 @@ export const wordSlice = createAppSlice({
     generateNewName: create.reducer((state) => {
       generateWord(state)
     }),
-    setWord: create.reducer((state, action: { payload: { word } }) => {
+    setWord: create.reducer((state, action: { payload: { word: string } }) => {
       const { word } = action.payload
       state.word = word
       addWordToHistory(state, state.word)
@@ -73,11 +75,11 @@ export const wordSlice = createAppSlice({
     resetHistory: create.reducer((state) => {
       state.history = []
     }),
-    changeGender: create.reducer((state, action: { payload: { value } }) => {
+    changeGender: create.reducer((state, action: { payload: { value: string } }) => {
       state.gender = action.payload.value
       generateWord(state)
     }),
-    changeRace: create.reducer((state, action: { payload: { value } }) => {
+    changeRace: create.reducer((state, action: { payload: { value: string } }) => {
       state.race = action.payload.value
       generateWord(state)
     }),
