@@ -6,8 +6,8 @@ export const NAMES = {
       words: {
         genders: ['male', 'female'],
         male: {
-          start: ['Grim', 'Gar', 'Tor', 'Rag', 'Kar'],
-          end: ['grand', 'gar', 'tar', 'lok', 'tooth'],
+          start: ['Grim', 'Gar', 'Tor', 'Rag', 'Kar', 'Sha', 'Gil', 'Ga'],
+          end: ['grand', 'gar', 'tar', 'lok', 'tooth', 'hat', 'gol', 'gul'],
         },
         female: {
           start: ['start1', 'start2'],

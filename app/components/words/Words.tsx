@@ -10,6 +10,8 @@ import {
   changeGender,
   generateNewName,
   changeRace,
+  generateLocation,
+  removeLocation,
 } from '@/lib/features/words/wordSlice'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks'
 import { primaryButtonStyle, secondaryButtonStyle } from '../../styles'
@@ -53,7 +55,7 @@ export const Words = () => {
   }, [availableRaces])
 
   const formattedSentence =
-    word[0].toUpperCase() + word.substring(1) + (location ? `of ${location}` : '')
+    word[0].toUpperCase() + word.substring(1) + (location ? ` of ${location}` : '')
 
   useEffect(() => {
     const resize = () => {
@@ -91,6 +93,11 @@ export const Words = () => {
         <button className={primaryButtonStyle} onClick={() => dispatch(generateNewName())}>
           Regenerate Name
         </button>
+        {location && (
+          <button className={primaryButtonStyle} onClick={() => dispatch(generateLocation())}>
+            Regenerate Location
+          </button>
+        )}
         <Dropdown
           activeKey={gender}
           values={availableGendersObject}
@@ -105,6 +112,14 @@ export const Words = () => {
             dispatch(changeRace({ value: key }))
           }}
         />
+        <button
+          className={primaryButtonStyle}
+          onClick={() => {
+            location ? dispatch(removeLocation()) : dispatch(generateLocation())
+          }}
+        >
+          {location ? 'Remove location' : 'Add location'}
+        </button>
       </div>
       <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full max-w-4xl bg-gray-100 rounded-md overflow-hidden">
         <div className="flex flex-row items-center place-content-between p-4 bg-gray-300 w-full">
