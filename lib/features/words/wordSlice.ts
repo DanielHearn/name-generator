@@ -1,6 +1,5 @@
 import { createAppSlice } from '@/lib/createAppSlice'
 import { NAMES } from '@/lib/words'
-import { STATIC_PROPS_ID } from 'next/dist/shared/lib/constants'
 
 const randomIndexFromArray = (max: number) => {
   return Math.floor(Math.random() * max)
@@ -81,6 +80,7 @@ const initialState = {
   gender: GENDER.male.key,
   race: RACES.orc.key,
   history: [formatSentence(initialWords)],
+  favourites: [],
 }
 
 // If you are not using async thunks you can use the standalone `createSlice`.
@@ -119,6 +119,15 @@ export const wordSlice = createAppSlice({
     removeLocation: create.reducer((state) => {
       state.location = null
     }),
+    addFavourite: create.reducer((state, action: { payload: { value: string } }) => {
+      state.favourites.push(action.payload.value)
+    }),
+    removeFavourite: create.reducer((state, action: { payload: { value: string } }) => {
+      state.favourites = state.favourites.filter((favourite) => favourite !== action.payload.value)
+    }),
+    resetFavourites: create.reducer((state) => {
+      state.favourites = []
+    }),
   }),
   // You can define your selectors here. These selectors receive the slice
   // state as their first argument.
@@ -128,6 +137,7 @@ export const wordSlice = createAppSlice({
     selectRace: (state) => state.race,
     selectGender: (state) => state.gender,
     selectLocation: (state) => state.location,
+    selectFavourites: (state) => state.favourites,
   },
 })
 
@@ -140,8 +150,17 @@ export const {
   changeRace,
   removeLocation,
   generateLocation,
+  addFavourite,
+  removeFavourite,
+  resetFavourites,
 } = wordSlice.actions
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
-export const { selectWord, selectHistory, selectRace, selectGender, selectLocation } =
-  wordSlice.selectors
+export const {
+  selectWord,
+  selectHistory,
+  selectRace,
+  selectGender,
+  selectLocation,
+  selectFavourites,
+} = wordSlice.selectors

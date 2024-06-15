@@ -1,17 +1,20 @@
 'use client'
 import {
-  generateWord,
   selectWord,
   selectHistory,
   selectGender,
   selectLocation,
   selectRace,
+  selectFavourites,
   resetHistory,
   changeGender,
   generateNewName,
   changeRace,
   generateLocation,
   removeLocation,
+  removeFavourite,
+  addFavourite,
+  resetFavourites,
 } from '@/lib/features/words/wordSlice'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks'
 import { primaryButtonStyle, secondaryButtonStyle } from '../../styles'
@@ -28,6 +31,7 @@ export const Words = () => {
   const race = useAppSelector(selectRace)
   const gender = useAppSelector(selectGender)
   const location = useAppSelector(selectLocation)
+  const favourites = useAppSelector(selectFavourites)
 
   const availableGenders = useMemo(() => {
     // @ts-ignore will fix later
@@ -118,25 +122,64 @@ export const Words = () => {
             location ? dispatch(removeLocation()) : dispatch(generateLocation())
           }}
         >
-          {location ? 'Remove location' : 'Add location'}
+          {location ? 'Remove Location' : 'Add Location'}
+        </button>
+        <button
+          className={primaryButtonStyle}
+          onClick={() => {
+            favourites.includes(formattedSentence)
+              ? dispatch(removeFavourite({ value: formattedSentence }))
+              : dispatch(addFavourite({ value: formattedSentence }))
+          }}
+        >
+          {favourites.includes(formattedSentence) ? 'Remove Favourite' : 'Add Favourite'}
         </button>
       </div>
-      <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full max-w-4xl bg-gray-100 rounded-md overflow-hidden">
-        <div className="flex flex-row items-center place-content-between p-4 bg-gray-300 w-full">
-          <h4 className="text-xl">Name History</h4>
-          <button className={secondaryButtonStyle} onClick={() => dispatch(resetHistory())}>
-            Reset History
-          </button>
+      <div className="flex flex-row items-center justify-center gap-2">
+        <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full max-w-4xl bg-gray-100 rounded-md overflow-hidden">
+          <div className="flex flex-row items-center place-content-between p-4 bg-gray-300 w-full">
+            <h4 className="text-xl">Favourites</h4>
+            <button className={secondaryButtonStyle} onClick={() => dispatch(resetFavourites())}>
+              Reset
+            </button>
+          </div>
+          <ul
+            className={`flex flex-col gap-2 overflow-auto ${
+              mobile ? 'min-h-20' : 'h-80'
+            } w-full p-4`}
+          >
+            {favourites.map((sentence, i) => (
+              <li key={`${sentence}_${i}`}>
+                <p suppressHydrationWarning>{sentence}</p>{' '}
+                <button
+                  className={secondaryButtonStyle}
+                  onClick={() => dispatch(removeFavourite({ value: sentence }))}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul
-          className={`flex flex-col gap-2 overflow-auto ${mobile ? 'min-h-20' : 'h-80'} w-full p-4`}
-        >
-          {orderedHistory.map((sentence, i) => (
-            <li key={`${sentence}_${i}`}>
-              <p suppressHydrationWarning>{sentence}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full max-w-4xl bg-gray-100 rounded-md overflow-hidden">
+          <div className="flex flex-row items-center place-content-between p-4 bg-gray-300 w-full">
+            <h4 className="text-xl">Name History</h4>
+            <button className={secondaryButtonStyle} onClick={() => dispatch(resetHistory())}>
+              Reset
+            </button>
+          </div>
+          <ul
+            className={`flex flex-col gap-2 overflow-auto ${
+              mobile ? 'min-h-20' : 'h-80'
+            } w-full p-4`}
+          >
+            {orderedHistory.map((sentence, i) => (
+              <li key={`${sentence}_${i}`}>
+                <p suppressHydrationWarning>{sentence}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )
