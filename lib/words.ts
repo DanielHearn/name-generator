@@ -19,6 +19,29 @@ export const NAMES = {
         },
       },
     },
+    human: {
+      name: 'Human',
+      key: 'human',
+      words: {
+        genders: ['male', 'female', 'any'],
+        male: {
+          start: ['Joe'],
+          end: ['Smith'],
+        },
+        female: {
+          start: ['Jess'],
+          end: ['Smith'],
+        },
+        any: {
+          start: ['Alex'],
+          end: ['Smith'],
+        },
+        locations: {
+          start: ['Winder', 'Mill', 'River', 'Small'],
+          end: ['wharf', 'glen', 'pass', 'bury'],
+        },
+      },
+    },
     elf: {
       name: 'Elf',
       key: 'elf',

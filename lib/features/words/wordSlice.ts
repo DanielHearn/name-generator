@@ -1,5 +1,6 @@
 import { createAppSlice } from '@/lib/createAppSlice'
 import { NAMES } from '@/lib/words'
+import { STATIC_PROPS_ID } from 'next/dist/shared/lib/constants'
 
 const randomIndexFromArray = (max: number) => {
   return Math.floor(Math.random() * max)
@@ -64,6 +65,10 @@ const GENDER = {
     name: 'Female',
     key: 'female',
   },
+  any: {
+    name: 'Any',
+    key: 'any',
+  },
 }
 
 const RACES = NAMES.races
@@ -102,6 +107,9 @@ export const wordSlice = createAppSlice({
     }),
     changeRace: create.reducer((state, action: { payload: { value: string } }) => {
       state.race = action.payload.value
+      if (!RACES[state.race].words.genders.includes(state.gender)) {
+        state.gender = RACES[state.race].words.genders[0]
+      }
       generateWord(state, false)
       regenerateLocation(state)
     }),
