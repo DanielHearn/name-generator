@@ -94,14 +94,6 @@ export const Words = () => {
       <div
         className={`flex flex-row flex-wrap items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0`}
       >
-        <button className={primaryButtonStyle} onClick={() => dispatch(generateNewName())}>
-          Regenerate Name
-        </button>
-        {location && (
-          <button className={primaryButtonStyle} onClick={() => dispatch(generateLocation())}>
-            Regenerate Location
-          </button>
-        )}
         <Dropdown
           activeKey={gender}
           values={availableGendersObject}
@@ -116,6 +108,18 @@ export const Words = () => {
             dispatch(changeRace({ value: key }))
           }}
         />
+      </div>
+      <div
+        className={`flex flex-row flex-wrap items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0`}
+      >
+        <button className={primaryButtonStyle} onClick={() => dispatch(generateNewName())}>
+          Regenerate Name
+        </button>
+        {location && (
+          <button className={primaryButtonStyle} onClick={() => dispatch(generateLocation())}>
+            Regenerate Location
+          </button>
+        )}
         <button
           className={primaryButtonStyle}
           onClick={() => {
@@ -135,8 +139,8 @@ export const Words = () => {
           {favourites.includes(formattedSentence) ? 'Remove Favourite' : 'Add Favourite'}
         </button>
       </div>
-      <div className="flex flex-row items-center justify-center gap-2">
-        <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full max-w-4xl bg-gray-100 rounded-md overflow-hidden">
+      <div className="flex flex-row items-center justify-center gap-4 w-full max-w-4xl">
+        <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full  bg-gray-100 rounded-md overflow-hidden">
           <div className="flex flex-row items-center place-content-between p-4 bg-gray-300 w-full">
             <h4 className="text-xl">Favourites</h4>
             <button className={secondaryButtonStyle} onClick={() => dispatch(resetFavourites())}>
@@ -161,9 +165,9 @@ export const Words = () => {
             ))}
           </ul>
         </div>
-        <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full max-w-4xl bg-gray-100 rounded-md overflow-hidden">
+        <div className="flex flex-col items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0 w-full bg-gray-100 rounded-md overflow-hidden">
           <div className="flex flex-row items-center place-content-between p-4 bg-gray-300 w-full">
-            <h4 className="text-xl">Name History</h4>
+            <h4 className="text-xl">History</h4>
             <button className={secondaryButtonStyle} onClick={() => dispatch(resetHistory())}>
               Reset
             </button>
