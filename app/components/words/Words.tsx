@@ -15,6 +15,7 @@ import {
   removeFavourite,
   addFavourite,
   resetFavourites,
+  generateAll,
 } from '@/lib/features/words/wordSlice'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks'
 import { primaryButtonStyle, secondaryButtonStyle } from '../../styles'
@@ -113,6 +114,11 @@ export const Words = () => {
       <div
         className={`flex flex-row flex-wrap items-center justify-center gap-2 mt-8 mb-2 ml-0 mr-0`}
       >
+        {location && (
+          <button className={primaryButtonStyle} onClick={() => dispatch(generateAll())}>
+            Regenerate Both
+          </button>
+        )}
         <button className={primaryButtonStyle} onClick={() => dispatch(generateNewName())}>
           Regenerate Name
         </button>

@@ -14,7 +14,9 @@ export default function Home() {
     >
       <div className="flex flex-col items-center justify-center gap-4">
         <h1 className="text-4xl">Name Generator</h1>
-        <h2 className="text-l">Generate names for characters in a variety of settings</h2>
+        <h2 className="text-l">
+          Generate names for characters and locations in a variety of settings
+        </h2>
       </div>
       <Words />
       <div>

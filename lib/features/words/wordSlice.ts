@@ -90,6 +90,11 @@ export const wordSlice = createAppSlice({
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: (create) => ({
+    generateAll: create.reducer((state) => {
+      console.log(1)
+      regenerateLocation(state, false)
+      generateWord(state)
+    }),
     generateNewName: create.reducer((state) => {
       generateWord(state)
     }),
@@ -143,6 +148,7 @@ export const wordSlice = createAppSlice({
 
 // Action creators are generated for each case reducer function.
 export const {
+  generateAll,
   generateNewName,
   setWord,
   resetHistory,

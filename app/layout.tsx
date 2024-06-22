@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Name Generator',
-  description: 'Generate names for characters in a variety of settings',
+  description: 'Generate names for characters and locations in a variety of settings',
 }
 
 export default function RootLayout({
