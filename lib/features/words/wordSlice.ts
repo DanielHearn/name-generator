@@ -80,7 +80,7 @@ const initialState = {
   gender: GENDER.male.key,
   race: RACES.orc.key,
   history: [formatSentence(initialWords)],
-  favourites: [],
+  favourites: [] as string[],
 }
 
 // If you are not using async thunks you can use the standalone `createSlice`.
@@ -91,7 +91,6 @@ export const wordSlice = createAppSlice({
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: (create) => ({
     generateAll: create.reducer((state) => {
-      console.log(1)
       regenerateLocation(state, false)
       generateWord(state)
     }),
@@ -112,7 +111,9 @@ export const wordSlice = createAppSlice({
     }),
     changeRace: create.reducer((state, action: { payload: { value: string } }) => {
       state.race = action.payload.value
+      // @ts-ignore
       if (!RACES[state.race].words.genders.includes(state.gender)) {
+        // @ts-ignore
         state.gender = RACES[state.race].words.genders[0]
       }
       generateWord(state, false)
