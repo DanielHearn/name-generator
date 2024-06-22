@@ -22,6 +22,7 @@ import { useEffect, useMemo } from 'react'
 import { selectMobile, setMobile } from '@/lib/features/words/metaSlice'
 import Dropdown from '../dropdown/Dropdown'
 import { NAMES } from '@/lib/words'
+import { BiHeart, BiSolidHeart } from 'react-icons/bi'
 
 export const Words = () => {
   const dispatch = useAppDispatch()
@@ -136,7 +137,7 @@ export const Words = () => {
               : dispatch(addFavourite({ value: formattedSentence }))
           }}
         >
-          {favourites.includes(formattedSentence) ? 'Remove Favourite' : 'Add Favourite'}
+          {favourites.includes(formattedSentence) ? <BiSolidHeart /> : <BiHeart />}
         </button>
       </div>
       <div className="flex flex-row items-center justify-center gap-4 w-full max-w-4xl">
@@ -153,13 +154,15 @@ export const Words = () => {
             } w-full p-4`}
           >
             {favourites.map((sentence, i) => (
-              <li key={`${sentence}_${i}`}>
-                <p suppressHydrationWarning>{sentence}</p>{' '}
+              <li key={`${sentence}_${i}`} className="flex flex-row items-center">
+                <p suppressHydrationWarning className="pr-4">
+                  {sentence}
+                </p>{' '}
                 <button
                   className={secondaryButtonStyle}
                   onClick={() => dispatch(removeFavourite({ value: sentence }))}
                 >
-                  Remove
+                  <BiSolidHeart />
                 </button>
               </li>
             ))}

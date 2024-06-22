@@ -30,17 +30,18 @@ export const Dropdown = (props: {
   }, [ref, open])
 
   return (
-    <div className="dropdown relative" ref={ref}>
-      <div className="flex flex-row items-center justify-center">
-        <div>{values?.[activeKey]}</div>
-        <button onClick={handleOpen} className="p-4 hover:bg-gray-600 user-">
-          {!open ? (
-            <BiChevronDown className="pointer-events-none" />
-          ) : (
-            <BiChevronUp className="pointer-events-none" />
-          )}
-        </button>{' '}
-      </div>
+    <div className="dropdown relative " ref={ref}>
+      <button
+        onClick={handleOpen}
+        className="flex flex-row items-center justify-center border-2 border-slate-700 rounded-md p-4 hover:bg-gray-600 user-"
+      >
+        {values?.[activeKey]}
+        {!open ? (
+          <BiChevronDown className="pointer-events-none" />
+        ) : (
+          <BiChevronUp className="pointer-events-none" />
+        )}
+      </button>
       {open ? (
         <ul className="dropdown_menu absolute z-50 rounded-md rounded-tr-none rounded-tl-none drop-shadow-md overflow-hidden">
           {Object.entries(values).map(([key, value]) => (
